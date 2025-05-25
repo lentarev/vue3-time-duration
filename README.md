@@ -1,5 +1,5 @@
 # vue3-time-duration
-UI widget for setting time duration. This is a component for vue 3
+UI Widget to set a time duration. This is a component for vue 3
 
 ## Getting started
 ### Install the component:
