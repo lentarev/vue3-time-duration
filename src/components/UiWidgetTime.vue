@@ -24,7 +24,7 @@ const selectedIdx = ref(0)
 const time: Ref<string | undefined> = ref(undefined)
 const inputRef = ref()
 const isReset = ref(false)
-const refItemList = useTemplateRef<Array<HTMLDivElement>>('refItemList')
+// const refItemList = useTemplateRef<Array<HTMLDivElement>>('refItemList')
 const rIndex = ref(0)
 
 // Computed properties
@@ -71,6 +71,7 @@ const onSelectItem = (id: number) => {
 const onShowDropdown = () => {
   isShowDropdown.value = true
 
+  /*
   setTimeout(() => {
     const elm = refItemList.value
 
@@ -79,6 +80,8 @@ const onShowDropdown = () => {
       elm[rIndex.value]?.scrollIntoView()
     }
   }, 250)
+
+   */
 }
 
 /**
@@ -133,8 +136,8 @@ const onInput = () => {
     <!-- DROPDOWN -->
     <div v-if="isShowDropdown" class="ui-widget-time__dropdown">
       <div v-for="(item, index) in items" :key="index">
+        <!--  ref="refItemList" -->
         <div
-          ref="refItemList"
           :class="{
             'ui-widget-time__dropdown-item': true,
             'ui-widget-time__dropdown-item_selected': rIndex === index,
