@@ -4,7 +4,7 @@ import { computed, type ComputedRef, onMounted, type Ref, ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: { start: string; end: string } | undefined
+    modelValue: { start: string; end: string }
   }>(),
   {
     modelValue: () => {
