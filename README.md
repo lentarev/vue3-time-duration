@@ -21,7 +21,6 @@ npm install --save vue3-time-duration
 <script lang="ts">
   import "vue3-time-duration/dist/vue3-time-duration.css";
   import Vue3TimeDuration from "vue3-time-duration";
-  import { IVue3TimeDuration } from "vue3-time-duration/types/IVue3TimeDuration";
 
   export default defineComponent({
     name: "FormLogin",
@@ -33,7 +32,7 @@ npm install --save vue3-time-duration
         duration: {
           start: "10:00", 
           end: "10:05"
-        } as IVue3TimeDuration,
+        }
       }
     }
   });
@@ -45,9 +44,8 @@ npm install --save vue3-time-duration
 <script setup lang="ts">
   import "vue3-time-duration/dist/vue3-time-duration.css";
   import Vue3TimeDuration from "vue3-time-duration";
-  import { IVue3TimeDuration } from "vue3-time-duration/types/IVue3TimeDuration";
   
-  const duration: IVue3TimeDuration = reactive({ start: "10:00", end: "10:05" });
+  const duration = ref({ start: "10:00", end: "10:05" });
 </script>
 
 <template>

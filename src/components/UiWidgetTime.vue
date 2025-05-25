@@ -5,7 +5,7 @@ import {
   type ComputedRef,
   type Ref,
   ref,
-  useTemplateRef,
+  // useTemplateRef,
   watch,
   type WritableComputedRef,
 } from 'vue'
@@ -25,6 +25,8 @@ const time: Ref<string | undefined> = ref(undefined)
 const inputRef = ref()
 const isReset = ref(false)
 // const refItemList = useTemplateRef<Array<HTMLDivElement>>('refItemList')
+
+const refItemList = ref()
 const rIndex = ref(0)
 
 // Computed properties
@@ -71,7 +73,6 @@ const onSelectItem = (id: number) => {
 const onShowDropdown = () => {
   isShowDropdown.value = true
 
-  /*
   setTimeout(() => {
     const elm = refItemList.value
 
@@ -80,8 +81,6 @@ const onShowDropdown = () => {
       elm[rIndex.value]?.scrollIntoView()
     }
   }, 250)
-
-   */
 }
 
 /**
@@ -138,6 +137,7 @@ const onInput = () => {
       <div v-for="(item, index) in items" :key="index">
         <!--  ref="refItemList" -->
         <div
+          ref="refItemList"
           :class="{
             'ui-widget-time__dropdown-item': true,
             'ui-widget-time__dropdown-item_selected': rIndex === index,
