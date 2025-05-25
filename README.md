@@ -13,7 +13,6 @@ npm install --save vue3-time-duration
 ```html
 <template>
   <div>
-    <!-- INPUTS -->
     <vue3-time-duration v-model="duration" />
   </div>
 </template>
@@ -28,7 +27,6 @@ npm install --save vue3-time-duration
     
     data() {
       return {
-        // Phone
         duration: {
           start: "10:00", 
           end: "10:05"
@@ -50,7 +48,6 @@ npm install --save vue3-time-duration
 
 <template>
   <div>
-    <!-- INPUTS -->
     <vue3-time-duration v-model="duration" />
   </div>
 </template>
