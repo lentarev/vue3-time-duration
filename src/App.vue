@@ -4,7 +4,7 @@ import { computed, type ComputedRef, onMounted, type Ref, ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    modelValue: { start: string; end: string }
+    modelValue: { start: string; end: string } | undefined
   }>(),
   {
     modelValue: () => {
@@ -148,8 +148,9 @@ body {
 .vue3-time-duration {
   --bg-element: #ffffff;
   --bg-selected: #f3f3f3;
-  --color-font: #333;
   --color-border: rgb(223, 230, 238);
+  --color-font: #333;
+  --size-font: '14px';
 
   &__t {
     display: flex;

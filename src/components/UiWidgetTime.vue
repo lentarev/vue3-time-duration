@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import IconXMark from '@/components/icons/IconXMark.vue'
-import {
-  computed,
-  type ComputedRef,
-  type Ref,
-  ref,
-  // useTemplateRef,
-  watch,
-  type WritableComputedRef,
-} from 'vue'
+import { computed, type ComputedRef, type Ref, ref, watch, type WritableComputedRef } from 'vue'
 
 const props = defineProps({
   timeListId: { type: Number, default: 0 },
@@ -24,7 +16,6 @@ const selectedIdx = ref(0)
 const time: Ref<string | undefined> = ref(undefined)
 const inputRef = ref()
 const isReset = ref(false)
-// const refItemList = useTemplateRef<Array<HTMLDivElement>>('refItemList')
 
 const refItemList = ref()
 const rIndex = ref(0)
@@ -135,7 +126,6 @@ const onInput = () => {
     <!-- DROPDOWN -->
     <div v-if="isShowDropdown" class="ui-widget-time__dropdown">
       <div v-for="(item, index) in items" :key="index">
-        <!--  ref="refItemList" -->
         <div
           ref="refItemList"
           :class="{
@@ -170,7 +160,7 @@ const onInput = () => {
     background-color: var(--bg-element);
     border: 1px solid var(--bg-element);
     color: var(--color-font);
-    font-size: 16px;
+    font-size: var(--size-font);
     margin-left: 3px;
     width: 100%;
   }
@@ -203,6 +193,7 @@ const onInput = () => {
   &__dropdown-item {
     padding: 6px 4px;
     cursor: pointer;
+    font-size: var(--size-font);
   }
 
   &__dropdown-item_selected {
