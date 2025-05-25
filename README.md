@@ -62,7 +62,7 @@ npm install --save vue3-time-duration
 	--bg-selected: #f3f3f3;
 	--color-font: #333;
 	--color-border: rgb(223, 230, 238);
-	--size-font: '14px';
+	--size-font: 14px;
 }
 ```
 
