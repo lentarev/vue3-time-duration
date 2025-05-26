@@ -1,7 +1,7 @@
 {
   "name": "vue3-time-duration",
   "description": "UI Widget to set a time duration. This is a component for vue 3",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": false,
   "author": "Egor Lentarev",
   "license": "MIT",
@@ -68,6 +68,6 @@
   ],
   "files": [
     "dist",
-    "types"
+    "vue3-time-duration.d.ts"
   ]
 }
