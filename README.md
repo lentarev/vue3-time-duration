@@ -13,7 +13,7 @@ npm install --save vue3-time-duration
 ```html
 <template>
   <div>
-    <UiWidgetWorkingTime :init-start="start" :init-end="end" @duration="onHandleDuration" />
+    <UiWidgetWorkingTime :init-start="start" :init-end="end" v-on:duration="onHandleDuration" />
   </div>
 </template>
 
@@ -72,7 +72,7 @@ npm install --save vue3-time-duration
 
 <template>
   <div>
-    <UiWidgetWorkingTime :init-start="start" :init-end="end" @duration="onHandleDuration" />
+    <UiWidgetWorkingTime :init-start="start" :init-end="end" v-on:duration="onHandleDuration" />
   </div>
 </template>
 ```
