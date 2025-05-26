@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import UiWidgetTime from '@/components/UiWidgetTime.vue'
-import { computed, type ComputedRef, onMounted, type Ref, ref } from 'vue'
+import { computed, type ComputedRef, onMounted, type Ref, ref, watch } from 'vue'
 
 const props = withDefaults(
   defineProps<{
-    modelValue: { start: string; end: string } | undefined
+    initStart?: string | undefined
+    initEnd?: string | undefined
   }>(),
   {
-    modelValue: () => {
-      return { start: '00:00', end: '00:05' }
+    initStart: () => {
+      return '00:00'
+    },
+
+    initEnd: () => {
+      return '00:05'
     },
   },
 )
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['duration'])
 
 const totalIds = ref(0)
 
@@ -25,23 +30,35 @@ const rightId = ref()
 const start: Ref<string | undefined> = ref()
 const end: Ref<string | undefined> = ref()
 
+const cInitStart = computed(() => {
+  return props.initStart
+})
+
+const cInitEnd = computed(() => {
+  return props.initEnd
+})
+
+watch(cInitStart, (val: string) => {
+  leftId.value = getIdByTime(val)
+  start.value = timeList.value.find((n) => n.id === leftId.value)?.time
+})
+
+watch(cInitEnd, (val: string) => {
+  rightId.value = getIdByTime(val)
+  end.value = timeList.value.find((n) => n.id === rightId.value)?.time
+})
+
 /**
  * Hook onMounted
  */
 onMounted(() => {
   createTimeList()
   totalIds.value = timeList.value.length - 1
-
-  leftId.value = getIdByTime(props.modelValue?.start)
-  rightId.value = getIdByTime(props.modelValue?.end)
-
-  start.value = timeList.value.find((n) => n.id === leftId.value)?.time
-  end.value = timeList.value.find((n) => n.id === rightId.value)?.time
 })
 
 const selectedTime: ComputedRef<{ start: string | undefined; end: string | undefined }> = computed(
   () => {
-    emit('update:modelValue', { start: start.value, end: end.value })
+    emit('duration', { start: start.value, end: end.value })
     return { start: start.value, end: end.value }
   },
 )

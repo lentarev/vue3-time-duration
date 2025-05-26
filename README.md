@@ -13,7 +13,7 @@ npm install --save vue3-time-duration
 ```html
 <template>
   <div>
-    <vue3-time-duration v-model="duration" />
+    <UiWidgetWorkingTime :init-start="start" :init-end="end" @duration="onHandleDuration" />
   </div>
 </template>
 
@@ -27,10 +27,20 @@ npm install --save vue3-time-duration
     
     data() {
       return {
-        duration: {
-          start: "10:00", 
-          end: "10:05"
-        }
+        start: "",
+        end: ""
+      }
+    },
+    
+    mounted() {
+      this.start = "10:00"
+      this.end = "10:05";
+    },
+    
+    methods() {
+      onHandleDuration(val: { start: string; end: string }) {
+        this.start = val.start;
+        this.end = val.end;
       }
     }
   });
@@ -42,13 +52,27 @@ npm install --save vue3-time-duration
 <script setup lang="ts">
   import "vue3-time-duration/dist/vue3-time-duration.css";
   import Vue3TimeDuration from "vue3-time-duration";
-  
-  const duration = ref({ start: "10:00", end: "10:05" });
+
+  const start: Ref<string | undefined> = ref("");
+  const end: Ref<string | undefined> = ref("");
+
+  /**
+   * Hook onMounted
+   */
+  onMounted(() => {
+    start.value = "10:00";
+    end.value = "10:05";
+  });
+
+  const onHandleDuration = (val: { start: string; end: string }) => {
+    start.value = val.start;
+    end.value = val.end;
+  };
 </script>
 
 <template>
   <div>
-    <vue3-time-duration v-model="duration" />
+    <UiWidgetWorkingTime :init-start="start" :init-end="end" @duration="onHandleDuration" />
   </div>
 </template>
 ```
