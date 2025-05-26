@@ -1,7 +1,7 @@
 {
   "name": "vue3-time-duration",
   "description": "UI Widget to set a time duration. This is a component for vue 3",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": false,
   "author": "Egor Lentarev",
   "license": "MIT",
@@ -21,7 +21,7 @@
       "import": "./dist/vue3-time-duration.css"
     }
   },
-  "types": "types/index.d.ts",
+  "types": "vue3-time-duration.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
