@@ -129,6 +129,8 @@ const onHandleRightSelectedId = (val: number) => {
   <div class="vue3-time-duration">
     <div v-show="false">
       {{ selectedTime }}
+      {{ cInitStart }}
+      {{ cInitEnd }}
     </div>
 
     <div class="vue3-time-duration__t">
