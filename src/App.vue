@@ -36,27 +36,30 @@ const start: Ref<string | undefined> = ref()
 const end: Ref<string | undefined> = ref()
 
 const cInitStart = computed(() => {
-  console.log('props.initStart', props.initStart)
+  leftId!.value = getIdByTime(props.initStart)
+  start!.value = timeList.value.find((n) => n.id === leftId.value)?.time
+
   return props.initStart
 })
 
 const cInitEnd = computed(() => {
-  console.log('props.initEnd', props.initEnd)
+  rightId!.value = getIdByTime(props.initEnd)
+  end!.value = timeList.value.find((n) => n.id === rightId.value)?.time
+
   return props.initEnd
 })
 
+/*
 watch(cInitStart, (val: string) => {
   leftId.value = getIdByTime(val)
   start.value = timeList.value.find((n) => n.id === leftId.value)?.time
-
-  console.log('watch.initStart', val)
 })
 
 watch(cInitEnd, (val: string) => {
   rightId.value = getIdByTime(val)
   end.value = timeList.value.find((n) => n.id === rightId.value)?.time
-  console.log('watch.cInitEnd', val)
 })
+ */
 
 /**
  * Hook onMounted
