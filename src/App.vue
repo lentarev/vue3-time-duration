@@ -48,11 +48,14 @@ const cInitEnd = computed(() => {
 watch(cInitStart, (val: string) => {
   leftId.value = getIdByTime(val)
   start.value = timeList.value.find((n) => n.id === leftId.value)?.time
+
+  console.log('watch.initStart', val)
 })
 
 watch(cInitEnd, (val: string) => {
   rightId.value = getIdByTime(val)
   end.value = timeList.value.find((n) => n.id === rightId.value)?.time
+  console.log('watch.cInitEnd', val)
 })
 
 /**
