@@ -27,7 +27,7 @@ const emit = defineEmits(['duration'])
 
 const totalIds = ref(0)
 
-const timeList: Ref<Array<{ id: number; time: string }>> = ref([])
+const timeList: Ref<Array<{ id: number; time: string }>> = ref(props.initTimeList)
 
 const leftId = ref()
 const rightId = ref()
