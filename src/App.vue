@@ -36,10 +36,12 @@ const start: Ref<string | undefined> = ref()
 const end: Ref<string | undefined> = ref()
 
 const cInitStart = computed(() => {
+  console.log('props.initStart', props.initStart)
   return props.initStart
 })
 
 const cInitEnd = computed(() => {
+  console.log('props.initEnd', props.initEnd)
   return props.initEnd
 })
 
