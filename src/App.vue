@@ -6,7 +6,6 @@ const props = withDefaults(
   defineProps<{
     initStart?: string | undefined
     initEnd?: string | undefined
-    initTimeList?: Array<{ id: number; time: string }>
   }>(),
   {
     initStart: () => {
@@ -16,10 +15,6 @@ const props = withDefaults(
     initEnd: () => {
       return '00:05'
     },
-
-    initTimeList: () => {
-      return []
-    },
   },
 )
 
@@ -27,7 +22,7 @@ const emit = defineEmits(['duration'])
 
 const totalIds = ref(0)
 
-const timeList: Ref<Array<{ id: number; time: string }>> = ref(props.initTimeList)
+const timeList: Ref<Array<{ id: number; time: string }>> = ref([])
 
 const leftId = ref()
 const rightId = ref()
@@ -49,25 +44,11 @@ const cInitEnd = computed(() => {
   return props.initEnd
 })
 
-/*
-watch(cInitStart, (val: string) => {
-  leftId.value = getIdByTime(val)
-  start.value = timeList.value.find((n) => n.id === leftId.value)?.time
-})
-
-watch(cInitEnd, (val: string) => {
-  rightId.value = getIdByTime(val)
-  end.value = timeList.value.find((n) => n.id === rightId.value)?.time
-})
- */
-
 /**
  * Hook onMounted
  */
 onMounted(() => {
-  if (props.initTimeList.length === 0) {
-    createTimeList()
-  }
+  createTimeList()
 
   totalIds.value = timeList.value.length - 1
 })
