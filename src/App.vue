@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UiWidgetTime from '@/components/UiWidgetTime.vue'
-import { computed, type ComputedRef, onMounted, type Ref, ref, watch } from 'vue'
+import { computed, type ComputedRef, onMounted, type Ref, ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
