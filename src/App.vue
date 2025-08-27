@@ -6,6 +6,7 @@ const props = withDefaults(
   defineProps<{
     initStart?: string | undefined
     initEnd?: string | undefined
+    initTimeList?: Array<{ id: number; time: string }>
   }>(),
   {
     initStart: () => {
@@ -14,6 +15,10 @@ const props = withDefaults(
 
     initEnd: () => {
       return '00:05'
+    },
+
+    initTimeList: () => {
+      return []
     },
   },
 )
@@ -52,7 +57,10 @@ watch(cInitEnd, (val: string) => {
  * Hook onMounted
  */
 onMounted(() => {
-  createTimeList()
+  if (props.initTimeList.length === 0) {
+    createTimeList()
+  }
+
   totalIds.value = timeList.value.length - 1
 })
 
