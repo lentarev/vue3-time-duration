@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UiWidgetTime from '@/components/UiWidgetTime.vue'
-import { computed, type ComputedRef, onMounted, type Ref, ref } from 'vue'
+import { computed, type ComputedRef, onMounted, type Ref, ref, watch } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -55,10 +55,13 @@ onMounted(() => {
 
 const selectedTime: ComputedRef<{ start: string | undefined; end: string | undefined }> = computed(
   () => {
-    emit('duration', { start: start.value, end: end.value })
     return { start: start.value, end: end.value }
   },
 )
+
+watch(selectedTime, (val: { start: string | undefined; end: string | undefined }) => {
+  emit('duration', { start: val.start, end: val.end })
+})
 
 const getIdByTime = (time: string): number | undefined => {
   return timeList.value.find((n) => n.time === time)?.id
