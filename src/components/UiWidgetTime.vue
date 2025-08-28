@@ -176,8 +176,7 @@ const onInput = () => {
   }
 
   &__w-input:focus {
-    outline-color: var(--bg-element);
-    outline-style: solid;
+    outline: 0 solid transparent;
   }
 
   &__w-icon {
