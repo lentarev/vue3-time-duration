@@ -6,6 +6,8 @@ const props = withDefaults(
   defineProps<{
     initStart?: string | undefined
     initEnd?: string | undefined
+    isDash?: boolean | undefined
+    isError?: boolean | undefined
   }>(),
   {
     initStart: () => {
@@ -14,6 +16,14 @@ const props = withDefaults(
 
     initEnd: () => {
       return '00:05'
+    },
+
+    isDash: () => {
+      return false
+    },
+
+    isError: () => {
+      return false
     },
   },
 )
@@ -128,13 +138,17 @@ const onHandleRightSelectedId = (val: number) => {
         class="vue3-time-duration__t-left"
         :time-list="timeList"
         :time-list-id="leftId"
+        :is-error="props.isError"
         v-on:selected-id="onHandleLeftSelectedId"
       />
+
+      <div v-if="isDash" class="vue3-time-duration__t-mdash">&mdash;</div>
 
       <UiWidgetTime
         class="vue3-time-duration__t-right"
         :time-list="timeList"
         :time-list-id="rightId"
+        :is-error="props.isError"
         v-on:selected-id="onHandleRightSelectedId"
       />
     </div>
@@ -168,12 +182,20 @@ body {
   --bg-element: #ffffff;
   --bg-selected: #f3f3f3;
   --color-border: rgb(223, 230, 238);
+
+  --bg-element-error: #ffe9e9;
+  --color-border-error: rgb(236, 157, 157);
+
   --color-font: #333;
   --size-font: 14px;
 
   &__t {
     display: flex;
     align-items: center;
+  }
+
+  &__t-mdash {
+    font-size: 12px;
   }
 
   &__t-left {

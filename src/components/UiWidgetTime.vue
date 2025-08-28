@@ -5,6 +5,7 @@ import { computed, type ComputedRef, type Ref, ref, watch, type WritableComputed
 const props = defineProps({
   timeListId: { type: Number, default: 0 },
   timeList: { type: Array<{ id: number; time: string }>, default: [] },
+  isError: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['selectedId'])
@@ -110,12 +111,12 @@ const onInput = () => {
 <template>
   <div class="ui-widget-time">
     <!-- INPUT -->
-    <div class="ui-widget-time__w">
+    <div :class="{ 'ui-widget-time__w': true, 'ui-widget-time__w_error': props.isError }">
       <input
         ref="inputRef"
         v-model="cTime"
         type="text"
-        class="ui-widget-time__w-input"
+        :class="{ 'ui-widget-time__w-input': true, 'ui-widget-time__w-input_error': props.isError }"
         @click="onShowDropdown"
         @focusout="onFocusOut"
         @input="onInput"
@@ -155,6 +156,10 @@ const onInput = () => {
     background-color: var(--bg-element);
     height: 24px;
   }
+  &__w_error {
+    border: 1px solid var(--color-border-error);
+    background-color: var(--bg-element-error);
+  }
 
   &__w-input {
     background-color: var(--bg-element);
@@ -163,6 +168,11 @@ const onInput = () => {
     font-size: var(--size-font);
     margin-left: 3px;
     width: 100%;
+  }
+
+  &__w-input_error {
+    background-color: var(--bg-element-error);
+    border: 1px solid var(--bg-element-error);
   }
 
   &__w-input:focus {
