@@ -6,6 +6,7 @@ const props = defineProps({
   timeListId: { type: Number, default: 0 },
   timeList: { type: Array<{ id: number; time: string }>, default: [] },
   isError: { type: Boolean, default: false },
+  isMobile: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['selectedId'])
@@ -120,6 +121,8 @@ const onInput = () => {
         @click="onShowDropdown"
         @focusout="onFocusOut"
         @input="onInput"
+        :readonly="true"
+        tabindex="-1"
       />
       <IconXMark class="ui-widget-time__w-icon" @click="onReset" />
     </div>

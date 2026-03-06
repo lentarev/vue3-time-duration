@@ -8,6 +8,7 @@ const props = withDefaults(
     initEnd?: string | undefined
     isDash?: boolean | undefined
     isError?: boolean | undefined
+    isMobile?: boolean | undefined
   }>(),
   {
     initStart: () => {
@@ -23,6 +24,9 @@ const props = withDefaults(
     },
 
     isError: () => {
+      return false
+    },
+    isMobile: () => {
       return false
     },
   },
@@ -139,6 +143,7 @@ const onHandleRightSelectedId = (val: number) => {
         :time-list="timeList"
         :time-list-id="leftId"
         :is-error="props.isError"
+        :is-mobile="props.isMobile"
         v-on:selected-id="onHandleLeftSelectedId"
       />
 
