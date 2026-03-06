@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import IconXMark from '@/components/icons/IconXMark.vue'
-import { computed, type ComputedRef, type Ref, ref, watch, type WritableComputedRef } from 'vue'
+import {
+  computed,
+  type ComputedRef,
+  onMounted,
+  onUnmounted,
+  type Ref,
+  ref,
+  watch,
+  type WritableComputedRef,
+} from 'vue'
 
 const props = defineProps({
   timeListId: { type: Number, default: 0 },
@@ -21,6 +30,11 @@ const isReset = ref(false)
 
 const refItemList = ref()
 const rIndex = ref(0)
+
+const scrollY = ref(0)
+const scrollLocked = ref(false)
+
+const dropdownRef = ref<HTMLElement | null>(null)
 
 // Computed properties
 const items: ComputedRef<Array<{ id: number; time: string }>> = computed(() => {
@@ -48,6 +62,32 @@ watch(idx, (val) => {
   cTime.value = props.timeList.find((n) => n.id === val)?.time
 })
 
+const lockScroll = () => {
+  if (scrollLocked.value) return
+
+  scrollY.value = window.scrollY
+  scrollLocked.value = true
+
+  // Фиксируем позицию страницы
+  document.body.style.position = 'fixed'
+  document.body.style.top = `-${scrollY.value}px`
+  document.body.style.width = '100%'
+  document.body.style.overflow = 'hidden'
+}
+
+const unlockScroll = () => {
+  if (!scrollLocked.value) return
+
+  document.body.style.position = ''
+  document.body.style.top = ''
+  document.body.style.width = ''
+  document.body.style.overflow = ''
+
+  // Возвращаем на место
+  window.scrollTo(0, scrollY.value)
+  scrollLocked.value = false
+}
+
 /**
  * Select item
  * @param id
@@ -65,6 +105,8 @@ const onSelectItem = (id: number) => {
  */
 const onShowDropdown = () => {
   isShowDropdown.value = true
+
+  lockScroll()
 
   setTimeout(() => {
     const elm = refItemList.value
@@ -86,6 +128,8 @@ const onFocusOut = () => {
 
       emit('selectedId', items.value.find((n) => n.id === selectedIdx.value)?.id)
       isShowDropdown.value = false
+
+      unlockScroll()
     }
   }, 200)
 
@@ -102,11 +146,45 @@ const onReset = () => {
   inputRef.value.focus()
   isReset.value = true
   isShowDropdown.value = true
+
+  lockScroll()
+
+  onShowDropdown()
 }
 
 const onInput = () => {
   timeListFiltered.value = props.timeList.filter((el) => el.time.startsWith(time.value as string))
 }
+
+const preventScroll = (e: Event) => {
+  if (!scrollLocked.value) return
+
+  const target = e.target as HTMLElement
+
+  const isInsideDropdown = target?.closest('.ui-widget-time__dropdown')
+
+  if (isInsideDropdown) {
+    const el = isInsideDropdown as HTMLElement
+    const isScrollable = el.scrollHeight > el.clientHeight
+
+    if (isScrollable) {
+      return
+    }
+  }
+
+  e.preventDefault()
+}
+
+onMounted(() => {
+  document.addEventListener('wheel', preventScroll, { passive: false })
+  document.addEventListener('touchmove', preventScroll, { passive: false })
+})
+
+onUnmounted(() => {
+  unlockScroll() //
+  document.removeEventListener('wheel', preventScroll)
+  document.removeEventListener('touchmove', preventScroll)
+})
 </script>
 
 <template>
@@ -119,6 +197,7 @@ const onInput = () => {
         type="text"
         :class="{ 'ui-widget-time__w-input': true, 'ui-widget-time__w-input_error': props.isError }"
         @click="onShowDropdown"
+        @focus="lockScroll"
         @focusout="onFocusOut"
         @input="onInput"
         :readonly="true"
