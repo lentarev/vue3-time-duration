@@ -200,8 +200,7 @@ onUnmounted(() => {
         @focus="lockScroll"
         @focusout="onFocusOut"
         @input="onInput"
-        :readonly="true"
-        tabindex="-1"
+        :readonly="props.isMobile"
       />
       <IconXMark class="ui-widget-time__w-icon" @click="onReset" />
     </div>
