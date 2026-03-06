@@ -272,9 +272,9 @@ onUnmounted(() => {
     max-height: 150px;
     margin: 4px;
     padding: 6px;
-    background: #ffffff;
+    background: var(--bg-element);
     z-index: 1;
-    border: 1px solid #f5f5f5;
+    border: 1px solid var(--bg-element);
     border-radius: 6px;
     box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.04);
     overflow-y: auto;
@@ -284,6 +284,7 @@ onUnmounted(() => {
     padding: 6px 4px;
     cursor: pointer;
     font-size: var(--size-font);
+    color: var(--color-font);
   }
 
   &__dropdown-item_selected {

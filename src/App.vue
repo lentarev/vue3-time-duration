@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import UiWidgetTime from '@/components/UiWidgetTime.vue'
 import { computed, type ComputedRef, onMounted, type Ref, ref, watch } from 'vue'
+import type { IColorScheme } from './interfaces/IColorScheme'
 
 const props = withDefaults(
   defineProps<{
+    pTheme?: string | undefined
     initStart?: string | undefined
     initEnd?: string | undefined
     isDash?: boolean | undefined
@@ -11,6 +13,9 @@ const props = withDefaults(
     isMobile?: boolean | undefined
   }>(),
   {
+    pTheme: () => {
+      return 'izziBot'
+    },
     initStart: () => {
       return '00:00'
     },
@@ -127,10 +132,39 @@ const onHandleRightSelectedId = (val: number) => {
   start.value = timeList.value.find((n) => n.id === leftId.value)?.time
   end.value = timeList.value.find((n) => n.id === rightId.value)?.time
 }
+
+const colorScheme = computed(() => {
+  const schemes: Record<string, IColorScheme> = {
+    default: {
+      bgElement: '#ffffff',
+      neutralN900Color: 'rgb(49, 49, 50)',
+      bgSelected: '#f3f3f3',
+      colorBorder: 'rgb(223, 230, 238)',
+    },
+    izziBot: {
+      bgElement: 'rgba(17, 17, 17, 1)',
+      neutralN900Color: '#ffffff',
+      bgSelected: 'rgba(36, 36, 36, 1)',
+      colorBorder: 'rgba(17, 17, 17, 1)',
+    },
+  }
+
+  const theme = props.pTheme
+
+  return schemes[theme]
+})
 </script>
 
 <template>
-  <div class="vue3-time-duration">
+  <div
+    class="vue3-time-duration"
+    :style="{
+      '--v-bg-element': colorScheme?.bgElement,
+      '--v-neutral-n900-color': colorScheme?.neutralN900Color,
+      '--v-bg-selected': colorScheme?.bgSelected,
+      '--v-color-border': colorScheme?.colorBorder,
+    }"
+  >
     <div v-show="false">
       {{ selectedTime }}
       {{ cInitStart }}
@@ -185,14 +219,14 @@ body {
 }
 
 .vue3-time-duration {
-  --bg-element: #ffffff;
-  --bg-selected: #f3f3f3;
-  --color-border: rgb(223, 230, 238);
+  --bg-element: var(--v-bg-element);
+  --bg-selected: var(--v-bg-selected);
+  --color-border: var(--v-color-border);
 
   --bg-element-error: #ffe9e9;
   --color-border-error: rgb(236, 157, 157);
 
-  --color-font: #333;
+  --color-font: var(--v-neutral-n900-color);
   --size-font: 14px;
 
   &__t {
