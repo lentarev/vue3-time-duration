@@ -14,7 +14,7 @@ const props = withDefaults(
   }>(),
   {
     pTheme: () => {
-      return 'izziBot'
+      return 'default'
     },
     initStart: () => {
       return '00:00'
