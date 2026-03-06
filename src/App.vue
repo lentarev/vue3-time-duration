@@ -154,6 +154,7 @@ const onHandleRightSelectedId = (val: number) => {
         :time-list="timeList"
         :time-list-id="rightId"
         :is-error="props.isError"
+        :is-mobile="props.isMobile"
         v-on:selected-id="onHandleRightSelectedId"
       />
     </div>
