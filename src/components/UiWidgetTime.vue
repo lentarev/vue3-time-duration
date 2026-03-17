@@ -3,6 +3,7 @@ import IconXMark from '@/components/icons/IconXMark.vue'
 import {
   computed,
   type ComputedRef,
+  nextTick,
   onMounted,
   onUnmounted,
   type Ref,
@@ -108,6 +109,7 @@ const onShowDropdown = () => {
 
   lockScroll()
 
+  /*
   setTimeout(() => {
     const elm = refItemList.value
 
@@ -116,6 +118,19 @@ const onShowDropdown = () => {
       elm[rIndex.value]?.scrollIntoView()
     }
   }, 250)
+  */
+
+  nextTick(() => {
+    const elm = refItemList.value
+    if (elm?.[rIndex.value]) {
+      rIndex.value = items.value.findIndex((n) => Number(n.id) === selectedIdx.value)
+      elm[rIndex.value]?.scrollIntoView({
+        block: 'nearest', // скроллить только если элемент вне зоны видимости
+        inline: 'nearest',
+        behavior: 'auto', // без анимации, чтобы избежать дополнительного дергания
+      })
+    }
+  })
 }
 
 /**
